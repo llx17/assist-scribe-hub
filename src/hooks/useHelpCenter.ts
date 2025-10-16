@@ -11,16 +11,16 @@ const transformCategories = (
   apiArticles: APIArticle[]
 ): Category[] => {
   return apiCategories.map((cat) => ({
-    id: cat.id,
+    id: cat.id.toString(),
     name: cat.name,
     articles: apiArticles
-      .filter((article) => article.category === cat.id)
+      .filter((article) => article.category.id === cat.id)
       .map((article) => ({
-        id: article.id,
+        id: article.id.toString(),
         title: article.title,
-        category: article.category,
-        content: article.content,
-        relatedArticles: article.related_articles,
+        category: article.category.id.toString(),
+        content: article.article_content,
+        relatedArticles: [],
       })),
   }));
 };

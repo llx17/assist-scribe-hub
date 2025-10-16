@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
-import { JWTTokenResponse, JWTRefreshResponse, APIArticle, APICategory, APITag } from '@/types/api';
+import { JWTTokenResponse, JWTRefreshResponse, APIArticle, APICategory, APITag, APIResponse } from '@/types/api';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
@@ -123,18 +123,18 @@ class APIClient {
 
   // Help Center APIs
   async getArticles(projectSlug: string): Promise<APIArticle[]> {
-    const response = await this.client.get<APIArticle[]>(`/api/${projectSlug}/articles/`);
-    return response.data;
+    const response = await this.client.get<APIResponse<APIArticle[]>>(`/api/${projectSlug}/articles/`);
+    return response.data.data;
   }
 
   async getCategories(projectSlug: string): Promise<APICategory[]> {
-    const response = await this.client.get<APICategory[]>(`/api/${projectSlug}/categories/`);
-    return response.data;
+    const response = await this.client.get<APIResponse<APICategory[]>>(`/api/${projectSlug}/categories/`);
+    return response.data.data;
   }
 
   async getTags(projectSlug: string): Promise<APITag[]> {
-    const response = await this.client.get<APITag[]>(`/api/${projectSlug}/tags/`);
-    return response.data;
+    const response = await this.client.get<APIResponse<APITag[]>>(`/api/${projectSlug}/tags/`);
+    return response.data.data;
   }
 }
 
